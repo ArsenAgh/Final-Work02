@@ -1,4 +1,4 @@
-function generator(matLen, gr, grEat, pred, virus, energy, zombie) {
+function generator(matLen, gr, grEat, pred, virus, energy, zombie, omnivorous) {
     let matrix = [];
     for (let i = 0; i < matLen; i++) {
         matrix[i] = [];
@@ -49,12 +49,19 @@ function generator(matLen, gr, grEat, pred, virus, energy, zombie) {
             matrix[x][y] = 6;
         }
     }
+    for (let i = 0; i < omnivorous; i++) {
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
+        if (matrix[x][y] == 0) {
+            matrix[x][y] = 7;
+        }
+    }
     return matrix;
 }
 
 let side = 20;
 
-let matrix = generator(50, 350, 200, 125, 90, 200, 150);
+let matrix = generator(50, 350, 200, 125, 90, 200, 150, 4);
 
 let grassArr = []
 let grassEaterArr = []
@@ -62,6 +69,7 @@ let predatorArr = []
 let virusArr = []
 let energyArr = []
 let zombieArr = []
+let omnivorousArr = []
 function setup() {
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
@@ -91,6 +99,10 @@ function setup() {
                 let zb = new Zombie(x, y)
                 zombieArr.push(zb)
             }
+            else if (matrix[y][x] == 7) {
+                let os = new Omnivorous(x, y)
+                omnivorousArr.push(os)
+            }
         }
     }
 }
@@ -119,6 +131,9 @@ function draw() {
             else if (matrix[y][x] == 6) {
                 fill('brown')
             }
+            else if (matrix[y][x] == 7) {
+                fill('white')
+            }
             rect(x * side, y * side, side, side)
         }
     }
@@ -139,5 +154,10 @@ function draw() {
         zombieArr[i].mul()
         zombieArr[i].eat()
         zombieArr[i].move()
+    }
+    for (let i in omnivorousArr) {
+     
+        omnivorousArr[i].eat()
+        omnivorousArr[i].move()
     }
 }
