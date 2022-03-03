@@ -61,7 +61,13 @@ function generator(matLen, gr, grEat, pred, virus, energy, zombie, omnivorous) {
 
 let side = 20;
 
+
 let matrix = generator(50, 350, 200, 125, 90, 200, 150, 4);
+
+let weather = false
+function weather2() {
+    weather = !weather
+}
 
 let grassArr = []
 let grassEaterArr = []
@@ -70,6 +76,7 @@ let virusArr = []
 let energyArr = []
 let zombieArr = []
 let omnivorousArr = []
+
 function setup() {
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
@@ -110,39 +117,76 @@ function setup() {
 
 
 function draw() {
-    for (let y = 0; y < matrix.length; y++) {
-        for (let x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
-                fill('green')
-            } else if (matrix[y][x] == 0) {
-                fill('#acacac')
-            } else if (matrix[y][x] == 2) {
-                fill('yellow')
+
+    if (weather == false) {
+        Summer()
+    }
+    else {
+
+        Winter()
+    }
+    function Summer(evt) {
+        frameRate(3)
+        for (let y = 0; y < matrix.length; y++) {
+            for (let x = 0; x < matrix[y].length; x++) {
+                if (matrix[y][x] == 1) {
+                    fill('green')
+                } else if (matrix[y][x] == 0) {
+                    fill('#acacac')
+                } else if (matrix[y][x] == 2) {
+                    fill('yellow')
+                }
+                else if (matrix[y][x] == 3) {
+                    fill('red')
+                }
+                else if (matrix[y][x] == 4) {
+                    fill('blue')
+                }
+                else if (matrix[y][x] == 5) {
+                    fill('purple')
+                }
+                else if (matrix[y][x] == 6) {
+                    fill('brown')
+                }
+                else if (matrix[y][x] == 7) {
+                    fill('white')
+                }
+                rect(x * side, y * side, side, side)
             }
-            else if (matrix[y][x] == 3) {
-                fill('red')
-            }
-            else if (matrix[y][x] == 4) {
-                fill('blue')
-            }
-            else if (matrix[y][x] == 5) {
-                fill('purple')
-            }
-            else if (matrix[y][x] == 6) {
-                fill('brown')
-            }
-            else if (matrix[y][x] == 7) {
-                fill('white')
-            }
-            rect(x * side, y * side, side, side)
         }
     }
-
-
-    if(counter>0){
+    function Winter(evt) {
         frameRate(1)
-       draw1()
+        for (let y = 0; y < matrix.length; y++) {
+            for (let x = 0; x < matrix[y].length; x++) {
+                if (matrix[y][x] == 1) {
+                    fill('lightgreen')
+                } else if (matrix[y][x] == 0) {
+                    fill('white')
+                } else if (matrix[y][x] == 2) {
+                    fill(255, 255, 50)
+                }
+                else if (matrix[y][x] == 3) {
+                    fill('pink')
+                }
+                else if (matrix[y][x] == 4) {
+                    fill(0, 191, 255)
+                }
+                else if (matrix[y][x] == 5) {
+                    fill(200, 161, 200)
+                }
+                else if (matrix[y][x] == 6) {
+                    fill(200, 133, 63)
+                }
+                else if (matrix[y][x] == 7) {
+                    fill('#acacac')
+                }
+                rect(x * side, y * side, side, side)
+            }
+        }
+        
     }
+
     for (let i in grassArr) {
         grassArr[i].mul()
     }
@@ -164,50 +208,12 @@ function draw() {
         omnivorousArr[i].eat()
         omnivorousArr[i].move()
     }
-}
-function draw1() {
-    for (let y = 0; y < matrix.length; y++) {
-        for (let x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
-                fill('lightgreen')
-            } else if (matrix[y][x] == 0) {
-                fill('white')
-            } else if (matrix[y][x] == 2) {
-                fill(255,255,50)
-            }
-            else if (matrix[y][x] == 3) {
-                fill('pink')
-            }
-            else if (matrix[y][x] == 4) {
-                fill(0,191,255)
-            }
-            else if (matrix[y][x] == 5) {
-                fill(200,161,200)
-            }
-            else if (matrix[y][x] == 6) {
-                fill(200,133,63)
-            }
-            else if (matrix[y][x] == 7) {
-                fill('#acacac')
-            }
-            rect(x * side, y * side, side, side)
-        }
-    }
-}
-var counter = 0
-function clickHandler(evt) {
 
-    console.log(evt);
-    if ("click") {
-        var str = "Сlick to make winter";
-        this.innerText = str;
-        counter++;
-        frameRate(1)
-       
+ 
 
-    }
+    var ChangeWeather = document.getElementById("weather");
+    ChangeWeather.addEventListener("click", weather2)
 
 }
 
-var p = document.getElementById("pElement");
-p.addEventListener("click", clickHandler);
+
