@@ -139,6 +139,10 @@ function draw() {
     }
 
 
+    if(counter>0){
+        frameRate(1)
+       draw1()
+    }
     for (let i in grassArr) {
         grassArr[i].mul()
     }
@@ -156,8 +160,54 @@ function draw() {
         zombieArr[i].move()
     }
     for (let i in omnivorousArr) {
-     
+
         omnivorousArr[i].eat()
         omnivorousArr[i].move()
     }
 }
+function draw1() {
+    for (let y = 0; y < matrix.length; y++) {
+        for (let x = 0; x < matrix[y].length; x++) {
+            if (matrix[y][x] == 1) {
+                fill('lightgreen')
+            } else if (matrix[y][x] == 0) {
+                fill('white')
+            } else if (matrix[y][x] == 2) {
+                fill(255,255,50)
+            }
+            else if (matrix[y][x] == 3) {
+                fill('pink')
+            }
+            else if (matrix[y][x] == 4) {
+                fill(0,191,255)
+            }
+            else if (matrix[y][x] == 5) {
+                fill(200,161,200)
+            }
+            else if (matrix[y][x] == 6) {
+                fill(200,133,63)
+            }
+            else if (matrix[y][x] == 7) {
+                fill('#acacac')
+            }
+            rect(x * side, y * side, side, side)
+        }
+    }
+}
+var counter = 0
+function clickHandler(evt) {
+
+    console.log(evt);
+    if ("click") {
+        var str = "Сlick to make winter";
+        this.innerText = str;
+        counter++;
+        frameRate(1)
+       
+
+    }
+
+}
+
+var p = document.getElementById("pElement");
+p.addEventListener("click", clickHandler);
