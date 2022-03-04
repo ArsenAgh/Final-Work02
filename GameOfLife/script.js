@@ -120,10 +120,12 @@ function draw() {
 
     if (weather == false) {
         Summer()
+  
     }
     else {
 
         Winter()
+    
     }
     function Summer(evt) {
         frameRate(3)
@@ -211,9 +213,23 @@ function draw() {
 
  
 
-    var ChangeWeather = document.getElementById("weather");
-    ChangeWeather.addEventListener("click", weather2)
+    var Cw = document.getElementById("weather");
+    Cw.addEventListener("click", weather2)
 
 }
 
+function clickHandler(evt){
+   if(weather == false){
+    var str = "Weather is a winter";
+    this.innerText = str;
+   }
+   else{
+    var str = "Weather is a summer";
+    this.innerText = str;
+   }
+   
+}
+
+var p = document.getElementById("weather");
+p.addEventListener("click", clickHandler);
 
