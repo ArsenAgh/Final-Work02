@@ -1,9 +1,17 @@
-function generator(matLen, gr, grEat, pred, virus, energy, zombie, omnivorous) {
+function generator(matLen, gr, grEat, pred, virus, energy, zombie, omnivorous, bomb) {
     let matrix = [];
     for (let i = 0; i < matLen; i++) {
         matrix[i] = [];
         for (let j = 0; j < matLen; j++) {
             matrix[i][j] = 0;
+        }
+    }
+
+    for (let i = 0; i < bomb; i++) {
+        let x = Math.floor(Math.random() * matLen);
+        let y = Math.floor(Math.random() * matLen);
+        if (matrix[x][y] == 0) {
+            matrix[x][y] = 8;
         }
     }
     for (let i = 0; i < gr; i++) {
@@ -56,13 +64,14 @@ function generator(matLen, gr, grEat, pred, virus, energy, zombie, omnivorous) {
             matrix[x][y] = 7;
         }
     }
+    
     return matrix;
 }
 
 let side = 20;
 
 
-let matrix = generator(50, 350, 200, 125, 90, 200, 150, 4);
+let matrix = generator(50, 350, 200, 125, 90, 200, 150, 4, 1);
 
 let weather = false
 function weather2() {
@@ -76,6 +85,7 @@ let virusArr = []
 let energyArr = []
 let zombieArr = []
 let omnivorousArr = []
+let bombArr = []
 
 function setup() {
     createCanvas(matrix[0].length * side, matrix.length * side);
@@ -109,6 +119,10 @@ function setup() {
             else if (matrix[y][x] == 7) {
                 let os = new Omnivorous(x, y)
                 omnivorousArr.push(os)
+            }
+            else if (matrix[y][x] == 8) {
+                let bm = new Bomb(x, y)
+                bombArr.push(bm)
             }
         }
     }
@@ -153,6 +167,9 @@ function draw() {
                 else if (matrix[y][x] == 7) {
                     fill('white')
                 }
+                else if (matrix[y][x] == 8) {
+                    fill('orange')
+                }
                 rect(x * side, y * side, side, side)
             }
         }
@@ -183,6 +200,9 @@ function draw() {
                 else if (matrix[y][x] == 7) {
                     fill('#acacac')
                 }
+                else if (matrix[y][x] == 8) {
+                    fill('orange')
+                }
                 rect(x * side, y * side, side, side)
             }
         }
@@ -209,6 +229,10 @@ function draw() {
 
         omnivorousArr[i].eat()
         omnivorousArr[i].move()
+    }
+    for (let i in bombArr) {
+        bombArr[i].eat()
+        bombArr[i].mul()
     }
 
  
