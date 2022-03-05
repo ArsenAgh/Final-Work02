@@ -71,7 +71,10 @@ function generator(matLen, gr, grEat, pred, virus, energy, zombie, omnivorous, b
 let side = 20;
 
 
-let matrix = generator(50, 350, 200, 125, 90, 200, 150, 4, 1);
+var  matrix = generator(50, 350, 200, 125, 90, 200, 150, 4,);
+
+let Bombclick = false
+
 
 let weather = false
 function weather2() {
@@ -124,10 +127,10 @@ function setup() {
                 let bm = new Bomb(x, y)
                 bombArr.push(bm)
             }
+
         }
     }
 }
-
 
 
 function draw() {
@@ -231,15 +234,42 @@ function draw() {
         omnivorousArr[i].move()
     }
     for (let i in bombArr) {
-        bombArr[i].eat()
         bombArr[i].mul()
-    }
+        bombArr[i].eat()
 
+    }
  
 
     var Cw = document.getElementById("weather");
     Cw.addEventListener("click", weather2)
 
+    var bmb = document.getElementById("bomb");
+    bmb.addEventListener("click", bombcl);
+
+
+    function bombcl() {
+        Bombclick = true
+        let bm = new Bomb()
+        bombArr.push(bm)
+         console.log(Bombclick);
+         console.log(bombArr);
+        setTimeout(() => {
+            Bombclick = false
+            for (let i in bombArr) {
+                bombArr[i].die()
+            }
+            console.log(Bombclick);
+            console.log(bombArr);
+        }, 5000);
+
+
+
+
+
+
+
+
+    }
 }
 
 function clickHandler(evt){
