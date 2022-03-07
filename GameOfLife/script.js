@@ -80,6 +80,30 @@ let weather = false
 function weather2() {
     weather = !weather
 }
+let male = false
+let female = false
+let maleAndFemale = true
+
+function ChangeGenderMale() {
+    male = true
+    female = false
+    maleAndFemale = false
+    console.log(male, female, maleAndFemale);
+}
+
+function ChangeGenderFemale() {
+    male = false
+    female = true
+    maleAndFemale = false
+    console.log(male, female, maleAndFemale);
+}
+
+function MaleAndFemaleGender() {
+    male = false
+    female = false
+    maleAndFemale = true
+    console.log(male, female, maleAndFemale);
+}
 
 let grassArr = []
 let grassEaterArr = []
@@ -245,6 +269,16 @@ function draw() {
 
     var bmb = document.getElementById("bomb");
     bmb.addEventListener("click", bombcl);
+
+    var Male = document.getElementById("male");
+    Male.addEventListener("click", ChangeGenderMale);
+
+
+    var female = document.getElementById("female");
+    female.addEventListener("click", ChangeGenderFemale);
+
+    var Male_And_Female = document.getElementById("MaleAndFemale");
+    Male_And_Female.addEventListener("click", MaleAndFemaleGender);
 
 
     function bombcl() {

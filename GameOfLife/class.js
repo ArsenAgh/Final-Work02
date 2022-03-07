@@ -4,6 +4,12 @@ class LivingCreature {
         this.y = y
         this.multiply = 0
         this.energy = 13
+        if (weather == false && maleAndFemale == true) {
+            this.multiply = 3
+        }
+        else if ((weather == true && male == true) || (female == true && weather == false)) {
+            this.multiply = -3
+        }
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
