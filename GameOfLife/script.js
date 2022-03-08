@@ -304,7 +304,7 @@ var clickCount = 0;
 function clickHandler1(evt){
    clickCount++;
 
-   var str = "Atpmic bomb is added... end of the world ";
+   var str = "Atomic bomb is added... end of the world...";
    this.innerText = str;
 }
 
