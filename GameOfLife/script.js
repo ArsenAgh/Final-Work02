@@ -71,9 +71,9 @@ function generator(matLen, gr, grEat, pred, virus, energy, zombie, omnivorous, b
 let side = 20;
 
 
-var  matrix = generator(50, 350, 200, 125, 90, 200, 150, 4,);
+var  matrix = generator(50, 350, 200, 125, 90, 200, 150, 4, 1);
 
-let Bombclick = false
+
 
 
 let weather = false
@@ -257,18 +257,18 @@ function draw() {
         omnivorousArr[i].eat()
         omnivorousArr[i].move()
     }
-    for (let i in bombArr) {
-        bombArr[i].mul()
-        bombArr[i].eat()
+    if(clickCount>0){
+        for (let i in bombArr) {
 
+            bombArr[i].eat()
+            bombArr[i].mul()
+        }
     }
+
  
 
     var Cw = document.getElementById("weather");
     Cw.addEventListener("click", weather2)
-
-    var bmb = document.getElementById("bomb");
-    bmb.addEventListener("click", bombcl);
 
     var Male = document.getElementById("male");
     Male.addEventListener("click", ChangeGenderMale);
@@ -281,29 +281,7 @@ function draw() {
     Male_And_Female.addEventListener("click", MaleAndFemaleGender);
 
 
-    function bombcl() {
-        Bombclick = true
-        let bm = new Bomb()
-        bombArr.push(bm)
-         console.log(Bombclick);
-         console.log(bombArr);
-        setTimeout(() => {
-            Bombclick = false
-            for (let i in bombArr) {
-                bombArr[i].die()
-            }
-            console.log(Bombclick);
-            console.log(bombArr);
-        }, 5000);
 
-
-
-
-
-
-
-
-    }
 }
 
 function clickHandler(evt){
@@ -320,4 +298,16 @@ function clickHandler(evt){
 
 var p = document.getElementById("weather");
 p.addEventListener("click", clickHandler);
+
+
+var clickCount = 0;
+function clickHandler1(evt){
+   clickCount++;
+
+   var str = "Atpmic bomb is added... end of the world ";
+   this.innerText = str;
+}
+
+var e = document.getElementById("bomb");
+e.addEventListener("click", clickHandler1);
 

@@ -1,5 +1,8 @@
 class GrassEater extends LivingCreature {
-
+    constructor(x,y){
+        super(x,y)
+        this.energy = 11
+    } 
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
