@@ -73,6 +73,9 @@ let side = 20;
 
 var  matrix = generator(50, 350, 200, 125, 90, 200, 150, 4, 1);
 
+var socket = io.connect("http://localhost:3000/")
+
+var statistics = {}
 
 
 
@@ -83,6 +86,7 @@ function weather2() {
 let male = false
 let female = false
 let maleAndFemale = true
+
 
 function ChangeGenderMale() {
     male = true
@@ -280,6 +284,30 @@ function draw() {
     var Male_And_Female = document.getElementById("MaleAndFemale");
     Male_And_Female.addEventListener("click", MaleAndFemaleGender);
 
+    statistics = {
+        grass: grassArr.length,
+        grassEater: grassEaterArr.length,
+        predator: predatorArr.length,
+        VVirus: virusArr.length,
+        EEnergy: energyArr.length,
+        ZZombie: zombieArr.length,
+        OOmnivorous: omnivorousArr.length
+    };
+    setInterval(function () {
+        socket.emit("send stat", statistics)
+    
+    }, 1000);
+    
+    
+    socket.on("send json", function (data) {
+        document.getElementById("grass").innerHTML = "Grass -- " + data.grass;
+        document.getElementById("grassEater").innerHTML = "GrassEater -- " + data.grassEater;
+        document.getElementById("predator").innerHTML = "Predator -- " + data.predator;
+        document.getElementById("VVirus").innerHTML = "Virus -- " + data.VVirus;
+        document.getElementById("EEnergy").innerHTML = "Energy -- " + data.EEnergy;
+        document.getElementById("ZZombie").innerHTML = "Zombie -- " + data.ZZombie;
+        document.getElementById("OOmnivorous").innerHTML = "omnivorous -- " + data.OOmnivorous;
+    })
 
 
 }
