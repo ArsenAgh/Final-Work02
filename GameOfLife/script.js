@@ -64,14 +64,14 @@ function generator(matLen, gr, grEat, pred, virus, energy, zombie, omnivorous, b
             matrix[x][y] = 7;
         }
     }
-    
+
     return matrix;
 }
 
 let side = 20;
 
 
-var  matrix = generator(50, 350, 200, 125, 90, 200, 150, 4, 1);
+var matrix = generator(50, 350, 200, 125, 90, 200, 150, 4, 1);
 
 var socket = io.connect("http://localhost:3000/")
 
@@ -165,12 +165,12 @@ function draw() {
 
     if (weather == false) {
         Summer()
-  
+
     }
     else {
 
         Winter()
-    
+
     }
     function Summer(evt) {
         frameRate(3)
@@ -237,7 +237,7 @@ function draw() {
                 rect(x * side, y * side, side, side)
             }
         }
-        
+
     }
 
     for (let i in grassArr) {
@@ -261,7 +261,7 @@ function draw() {
         omnivorousArr[i].eat()
         omnivorousArr[i].move()
     }
-    if(clickCount>0){
+    if (clickCount > 0) {
         for (let i in bombArr) {
 
             bombArr[i].eat()
@@ -269,7 +269,7 @@ function draw() {
         }
     }
 
- 
+
 
     var Cw = document.getElementById("weather");
     Cw.addEventListener("click", weather2)
@@ -293,12 +293,9 @@ function draw() {
         ZZombie: zombieArr.length,
         OOmnivorous: omnivorousArr.length
     };
-    setInterval(function () {
-        socket.emit("send stat", statistics)
-    
-    }, 1000);
-    
-    
+
+
+
     socket.on("send json", function (data) {
         document.getElementById("grass").innerHTML = "Grass -- " + data.grass;
         document.getElementById("grassEater").innerHTML = "GrassEater -- " + data.grassEater;
@@ -311,17 +308,23 @@ function draw() {
 
 
 }
+setInterval(function () {
+    socket.emit("send stat", statistics)
 
-function clickHandler(evt){
-   if(weather == false){
-    var str = "Weather is a winter";
-    this.innerText = str;
-   }
-   else{
-    var str = "Weather is a summer";
-    this.innerText = str;
-   }
-   
+}, 1000);
+
+
+
+function clickHandler(evt) {
+    if (weather == false) {
+        var str = "Weather is a winter";
+        this.innerText = str;
+    }
+    else {
+        var str = "Weather is a summer";
+        this.innerText = str;
+    }
+
 }
 
 var p = document.getElementById("weather");
@@ -329,11 +332,11 @@ p.addEventListener("click", clickHandler);
 
 
 var clickCount = 0;
-function clickHandler1(evt){
-   clickCount++;
+function clickHandler1(evt) {
+    clickCount++;
 
-   var str = "Atomic bomb is added... end of the world...";
-   this.innerText = str;
+    var str = "Atomic bomb is added... end of the world...";
+    this.innerText = str;
 }
 
 var e = document.getElementById("bomb");
